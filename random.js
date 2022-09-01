@@ -4,7 +4,7 @@ console.log("%c random.js", "color:red;font-size:15px; background:black");
 //সব দেখাবে ওয়েবসাইট এ। অর্থাৎ street, city, coordinates, timezone যেকোন একভাবে দেখলেই হবে।
 // তবে দেখাতে হবে।
 const loadRandomUser = () => {
-  url = "https://randomuser.me/api/";
+  url = "https://randomuser.me/api/?gender=female";
   fetch(url)
     .then((response) => response.json())
     .then((data) => randomUser(data));
@@ -23,36 +23,35 @@ const randomUser = (data) => {
   const password = data.results[0].login.password;
   const image = data.results[0].picture.medium;
   const city = data.results[0].location.city;
+  const state = data.results[0].location.state;
   const country = data.results[0].location.country;
-  const postcode = data.results[0].location.postcode.state;
+  const postcode = data.results[0].location.postcode;
   const street =
     data.results[0].location.street.name + " " + data.results[0].location.street.number;
-  const address = street + " " + city + " " + country + " " + postcode;
+  const address = street + " " + state + " " + city + " " + country + " " + postcode;
 
   const wrapperForUser = document.getElementById("wrapperForUser");
+
   const div = document.createElement("div");
   div.innerHTML = `
-  
-    <img
-    class="rounded-circle"
-    src="${image}"
-  />
+  <img class="rounded-circle" src="${image}"/>
   <h3 class="name">${fullName}</h3>
   <p class="title">${email}</p>
-  <div class="card" style="width: 18rem;">
-  <ul class="list-group list-group-flush text-left">
-    <li class="list-group-item  text-left">Address:${address}</li>
-    <li class="list-group-item text-left">Age: ${age}</li>
-    <li class="list-group-item text-left">${phone}</li>
-    <li class="list-group-item text-left">Password: ${password}</li>
-    <li class="list-group-item text-left">${phone}</li>
+  <div class="card">
+  <ul class="list-group list-group-flush ">
+    <li class="list-group-item">Address: ${address}</li>
+    <li class="list-group-item">Age: ${age}</li>
+    <li class="list-group-item">Phone: ${phone}</li>
+    <li class="list-group-item">Password: ${password}</li>
   </ul>
 </div>
-  
-  
-  
-  
     `;
   wrapperForUser.append(div);
 };
 loadRandomUser();
+
+const loadOnButton = () => {
+  const wrapperForUser = document.getElementById("wrapperForUser");
+  wrapperForUser.innerHTML = "";
+  loadRandomUser();
+};

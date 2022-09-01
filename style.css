@@ -87,6 +87,6 @@
 .team-boxed .social a:hover {
   opacity: 1;
 }
-li.list-group-item.text-left {
-  text-align: LEFT;
+li.list-group-item {
+  text-align: left;
 }
